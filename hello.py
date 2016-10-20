@@ -1,8 +1,10 @@
 # coding=utf-8
 import os
 import sys
+__import__('BaseHTTPServer').BaseHTTPRequestHandler.address_string = lambda x:x.client_address[0]
 from wsgiref.simple_server import make_server
 import urllib2
+
 reload(sys)   
 sys.setdefaultencoding('utf-8')
 
@@ -44,8 +46,6 @@ def application(environ,start_response):
     if requestUrl == "/?":
         requestUrl = "/?hl=zh-CN"
     requestUrl = requestUrl.replace('safe=strict','safe=off')
-    
-    print requestUrl
     
     # Advs block listener
     if str(environ["PATH_INFO"]) == '/cdn-dat/adb':
